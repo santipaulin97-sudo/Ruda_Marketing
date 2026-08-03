@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruda Marketing — Agencia estratégica, Córdoba</title>
+  <meta name="description" content="Somos tres socias que funcionamos como el área de marketing tercerizada de empresas que necesitan pensar su negocio antes de comunicarlo." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --verde: #2D5016;
+      --crema: #F5F0E8;
+      --tierra: #8B6914;
+      --blanco: #ffffff;
+      --gris: #555;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--crema);
+      color: #1a1a1a;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      background: var(--crema);
+      border-bottom: 1px solid #e0d9cc;
+    }
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--verde);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--verde);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 60px 80px;
+      background: var(--crema);
+    }
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 32px;
+    }
+    .hero-title {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900;
+      color: var(--verde);
+      line-height: 1.0;
+      margin-bottom: 32px;
+      max-width: 800px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--gris);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--verde);
+      color: var(--crema);
+      padding: 16px 40px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--tierra); }
+
+    /* PORTFOLIO */
+    #portfolio {
+      padding: 100px 60px;
+      background: var(--blanco);
+    }
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 16px;
+    }
+    .section-heading {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 60px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+    }
+    .card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      background: #ddd;
+      margin-bottom: 20px;
+      transition: transform 0.4s;
+      overflow: hidden;
+      display: block;
+    }
+    .card:hover .card-img { transform: scale(1.03); }
+    .card-tags {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .card-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--tierra);
+    }
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    .card:hover .card-title { color: var(--tierra); }
+    .card-desc {
+      font-size: 14px;
+      color: var(--gris);
+      line-height: 1.6;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      overflow-y: auto;
+    }
+    .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; }
+    .modal {
+      background: var(--crema);
+      max-width: 800px;
+      width: 100%;
+      padding: 60px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--verde);
+    }
+    .modal-tag {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 32px;
+    }
+    .modal-img {
+      width: 100%;
+      margin-bottom: 40px;
+      display: block;
+    }
+    .modal-section { margin-bottom: 32px; }
+    .modal-section h3 {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 12px;
+    }
+    .modal-section p {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    /* SOBRE */
+    #sobre {
+      padding: 100px 60px;
+      background: var(--crema);
+    }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .sobre-text p {
+      font-size: 17px;
+      color: var(--gris);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .sobre-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .stat-number {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--verde);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-top: 8px;
+    }
+
+    /* CONTACTO */
+    #contacto {
+      padding: 100px 60px;
+      background: var(--verde);
+      color: var(--crema);
+    }
+    #contacto .section-title { color: #a8c97a; }
+    #contacto .section-heading { color: var(--crema); }
+    #contacto p {
+      font-size: 18px;
+      opacity: 0.8;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid var(--crema);
+      color: var(--crema);
+      padding: 16px 40px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
+    .btn-outline:hover {
+      background: var(--crema);
+      color: var(--verde);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 60px;
+      background: #1a1a1a;
+      color: #666;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 60px; }
+      #portfolio, #sobre, #contacto { padding: 60px 24px; }
+      .grid { grid-template-columns: 1fr; gap: 40px; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .modal { padding: 40px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Ruda</a>
+    <div class="nav-links">
+      <a href="#portfolio">Casos</a>
+      <a href="#sobre">Nosotras</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-tag">Agencia de marketing estratégico — Córdoba, Argentina</p>
+    <h1 class="hero-title">El criterio<br>primero.<br>Las piezas<br>después.</h1>
+    <p class="hero-sub">Somos tres socias que nos metemos adentro de tu negocio, encontramos qué frena el crecimiento y ordenamos ahí. Recién después viene la marca.</p>
+    <a href="#portfolio" class="btn-primary">Ver casos</a>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="section-title">Portfolio</p>
+    <h2 class="section-heading">Casos de trabajo</h2>
+    <div class="grid" id="proyectos-grid">
+      <!-- Se cargan desde JS -->
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <p class="section-title">Quiénes somos</p>
+    <h2 class="section-heading">Sobre Ruda</h2>
+    <div class="sobre-grid">
+      <div class="sobre-text">
+        <p>Ruda es una agencia de marketing estratégico de Córdoba, Argentina. Funcionamos como el área de marketing tercerizada de empresas que necesitan pensar su negocio antes de comunicarlo.</p>
+        <p>Nos metemos adentro de lo que hace el cliente, encontramos qué frena el crecimiento y ordenamos ahí. Recién después venimos con la marca, el sistema visual y el contenido.</p>
+        <p>Los casos que vas a ver son eso: procesos donde el criterio vino primero y las piezas después.</p>
+      </div>
+      <div class="sobre-stats">
+        <div>
+          <div class="stat-number">8</div>
+          <div class="stat-label">Casos publicados</div>
+        </div>
+        <div>
+          <div class="stat-number">3</div>
+          <div class="stat-label">Socias fundadoras</div>
+        </div>
+        <div>
+          <div class="stat-number">Cba.</div>
+          <div class="stat-label">Argentina</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <p class="section-title">Hablemos</p>
+    <h2 class="section-heading">¿Trabajamos juntos?</h2>
+    <p>Contanos tu negocio y arrancamos desde ahí. Sin vueltas.</p>
+    <a href="https://instagram.com/ruda.marketing" target="_blank" class="btn-outline">Instagram</a>
+    <a href="mailto:hola@rudamarketing.com" class="btn-outline">Email</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Ruda Marketing — Córdoba, Argentina</span>
+    <span>Diseño estratégico antes que decorativo</span>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="cerrarModal(event)">
+    <div class="modal" id="modal-content">
+      <button class="modal-close" onclick="cerrarModal()">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const proyectos = [
+      {
+        slug: "abc-x-ruda",
+        cliente: "ABC",
+        titulo: "ABC x Ruda",
+        tags: ["Branding", "Estrategia"],
+        descripcion: "Redefinición de marca y sistema de comunicación.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/00f805253723877.Y3JvcCwzMTU2LDI0NjksNDI5LDQ4MTM.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "winay-x-ruda",
+        cliente: "Wiñay",
+        titulo: "Wiñay x Ruda",
+        tags: ["Identidad", "Contenido"],
+        descripcion: "Sistema visual e identidad de marca.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/3fc01a253251111.Y3JvcCwzNzI3LDI5MTUsNjM2LDEzMzc.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "flowik-x-ruda",
+        cliente: "Flowik",
+        titulo: "Flowik x Ruda",
+        tags: ["Copywriting", "Branding"],
+        descripcion: "Estrategia de comunicación y sistema de marca.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/02c431253243841.Y3JvcCwzNDU0LDI3MDEsMjMxNiwxOTY2.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "galeon-x-ruda",
+        cliente: "Galeón",
+        titulo: "Galeón x Ruda",
+        tags: ["Estrategia", "Identidad"],
+        descripcion: "Posicionamiento y desarrollo de marca.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/cfe3c1253077423.Y3JvcCwzMzY2LDI2MzMsMCww.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "kodo-x-ruda",
+        cliente: "Kodo",
+        titulo: "Kodo x Ruda",
+        tags: ["Branding", "Contenido"],
+        descripcion: "Identidad visual y estrategia de contenido.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/672f13253014789.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "cauce-x-ruda",
+        cliente: "Cauce",
+        titulo: "Cauce x Ruda",
+        tags: ["Estrategia", "Branding"],
+        descripcion: "Definición estratégica y sistema visual.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/24e862252721995.Y3JvcCw2MzkyLDQ5OTksNDcsMA.png",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "as-experience-x-ruda",
+        cliente: "AS Experience",
+        titulo: "AS Experience x Ruda",
+        tags: ["Identidad", "Estrategia"],
+        descripcion: "Marca y comunicación para experiencias.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/980c49252714083.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      },
+      {
+        slug: "club-mendio-x-ruda",
+        cliente: "Club Mendio",
+        titulo: "Club Mendio x Ruda",
+        tags: ["Branding", "Copywriting"],
+        descripcion: "Sistema de comunicación y marca.",
+        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/249b51252711443.Y3JvcCw0NzMwLDM3MDAsMzg2LDA.jpg",
+        desafio: "Completar con la info real del proyecto.",
+        solucion: "Completar con la info real del proyecto.",
+        resultado: "Completar con la info real del proyecto."
+      }
+    ]
+
+    // Renderizar cards
+    const grid = document.getElementById('proyectos-grid')
+    proyectos.forEach(p => {
+      grid.innerHTML += `
+        <a class="card" onclick="abrirModal('${p.slug}'); return false;" href="#">
+          <img class="card-img" src="${p.imagen}" alt="${p.titulo}" />
+          <div class="card-tags">${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
+          <div class="card-title">${p.titulo}</div>
+          <div class="card-desc">${p.descripcion}</div>
+        </a>
+      `
+    })
+
+    function abrirModal(slug) {
+      const p = proyectos.find(x => x.slug === slug)
+      if (!p) return
+      document.getElementById('modal-body').innerHTML = `
+        <div class="modal-tag">${p.tags.join(' · ')}</div>
+        <div class="modal-title">${p.titulo}</div>
+        <img class="modal-img" src="${p.imagen}" alt="${p.titulo}" />
+        <div class="modal-section"><h3>Desafío</h3><p>${p.desafio}</p></div>
+        <div class="modal-section"><h3>Solución</h3><p>${p.solucion}</p></div>
+        <div class="modal-section"><h3>Resultado</h3><p>${p.resultado}</p></div>
+      `
+      document.getElementById('modal-overlay').classList.add('active')
+      document.body.style.overflow = 'hidden'
+    }
+
+    function cerrarModal(e) {
+      if (e && e.target !== document.getElementById('modal-overlay') && e.type !== 'click') return
+      if (e && e.currentTarget === document.querySelector('.modal-close')) {
+        // ok
+      }
+      document.getElementById('modal-overlay').classList.remove('active')
+      document.body.style.overflow = ''
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('modal-overlay').classList.remove('active')
+        document.body.style.overflow = ''
+      }
+    })
+  </script>
+</body>
+</html>
