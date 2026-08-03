@@ -487,6 +487,8 @@
       if (!p) return
       const igBtn = p.ig ? `<a href="${p.ig}" target="_blank" class="btn-verde" style="display:inline-flex;align-items:center;gap:10px;margin-top:8px;">Ver en Instagram →</a>` : ''
       document.getElementById('modal-content').innerHTML = `<img class="modal-img" src="${p.imagen}" alt="${p.titulo}" /><div class="modal-body-inner"><div class="modal-tags">${p.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div><div class="modal-title">${p.titulo}</div><div class="modal-section"><h3>Trabajo realizado</h3><p>${p.descripcion}</p>${igBtn}</div></div>`
+      document.getElementById('modal-overlay').classList.add('active')
+      document.body.style.overflow = 'hidden'
     }
     function cerrarModal() { document.getElementById('modal-overlay').classList.remove('active'); document.body.style.overflow = '' }
     document.getElementById('modal-close-btn').addEventListener('click', cerrarModal)
