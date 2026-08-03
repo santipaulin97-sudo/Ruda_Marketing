@@ -336,6 +336,36 @@
     }
     .btn-ghost:hover { border-color: var(--verde); color: var(--verde); }
 
+    /* PROCESO */
+    #proceso { padding: 100px 48px; background: var(--negro); border-top: 1px solid #222; }
+    .proceso-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #1a1a1a; border: 1px solid #1a1a1a; }
+    .proceso-step { background: var(--negro); padding: 48px 40px; display: flex; flex-direction: column; gap: 24px; transition: background 0.3s; }
+    .proceso-step:hover { background: #111; }
+    .proceso-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--verde); line-height: 1; opacity: 0.25; }
+    .proceso-step:hover .proceso-num { opacity: 1; }
+    .proceso-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--blanco); margin-bottom: 12px; }
+    .proceso-body p { font-size: 14px; color: var(--gris); line-height: 1.8; }
+
+    /* TESTIMONIOS */
+    #testimonios { padding: 100px 48px; background: var(--gris-oscuro); border-top: 1px solid #222; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testi-card { background: var(--negro); border: 1px solid #222; padding: 40px; display: flex; flex-direction: column; gap: 20px; transition: border-color 0.3s; }
+    .testi-card:hover { border-color: var(--verde); }
+    .testi-quote { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: var(--verde); line-height: 0.8; opacity: 0.4; }
+    .testi-card:hover .testi-quote { opacity: 1; }
+    .testi-text { font-size: 16px; color: #ccc; line-height: 1.8; flex: 1; font-style: italic; }
+    .testi-autor { display: flex; align-items: center; gap: 16px; padding-top: 20px; border-top: 1px solid #222; }
+    .testi-inicial { width: 40px; height: 40px; border-radius: 50%; background: var(--verde); color: var(--negro); font-family: 'Bebas Neue', sans-serif; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+    .testi-nombre { font-size: 13px; font-weight: 700; color: var(--blanco); }
+    .testi-cargo { font-size: 11px; color: var(--gris); letter-spacing: 1px; margin-top: 2px; }
+
+    @media (max-width: 768px) {
+      .proceso-grid { grid-template-columns: 1fr; }
+      #proceso { padding: 60px 24px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      #testimonios { padding: 60px 24px; }
+    }
+
     /* FOOTER */
     footer {
       padding: 32px 48px;
@@ -398,46 +428,6 @@
       .proyectos-grid { grid-template-columns: 1fr; }
       .manifiesto-grid, .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-bg-text { display: none; }
-      <!-- TESTIMONIOS -->
-  <section id="testimonios">
-    <p class="section-eyebrow reveal">Lo que dicen</p>
-    <h2 class="section-heading reveal">Clientes<br>que arrancaron</h2>
-    <div class="testi-grid reveal">
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Llegué pensando que necesitaba un community manager. Me fui con un diagnóstico que cambió cómo pienso mi negocio.</p>
-        <div class="testi-autor">
-          <div class="testi-inicial">M</div>
-          <div>
-            <div class="testi-nombre">Martín R.</div>
-            <div class="testi-cargo">Fundador, empresa de servicios — Córdoba</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Antes de trabajar con Ruda tenía una marca bonita que no le hablaba a nadie. Ahora tengo una marca que cierra ventas.</p>
-        <div class="testi-autor">
-          <div class="testi-inicial">S</div>
-          <div>
-            <div class="testi-nombre">Sofía L.</div>
-            <div class="testi-cargo">Fundadora, sector salud</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Nos hicieron preguntas que nunca nos habíamos hecho. Eso ya valió todo el proceso.</p>
-        <div class="testi-autor">
-          <div class="testi-inicial">G</div>
-          <div>
-            <div class="testi-nombre">Familia Gutiérrez</div>
-            <div class="testi-cargo">Empresa familiar — Córdoba</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
       .contacto-bg { display: none; }
       footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
       .no-item-right { display: none; }
@@ -624,6 +614,47 @@
       <div class="no-item">
         <div class="no-item-left"><span class="no-x">✕</span><span>Trabajar para todos</span></div>
         <div class="no-item-right">Nos metemos adentro de tu negocio. Eso requiere selección.</div>
+      </div>
+    </div>
+  </section>
+
+   <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <p class="section-eyebrow reveal">Lo que dicen</p>
+    <h2 class="section-heading reveal">Clientes<br>que arrancaron</h2>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Llegué pensando que necesitaba un community manager. Me fui con un diagnóstico que cambió cómo pienso mi negocio.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">M</div>
+          <div>
+            <div class="testi-nombre">Martín R.</div>
+            <div class="testi-cargo">Fundador, empresa de servicios — Córdoba</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Antes de trabajar con Ruda tenía una marca bonita que no le hablaba a nadie. Ahora tengo una marca que cierra ventas.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">S</div>
+          <div>
+            <div class="testi-nombre">Sofía L.</div>
+            <div class="testi-cargo">Fundadora, sector salud</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Nos hicieron preguntas que nunca nos habíamos hecho. Eso ya valió todo el proceso.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">G</div>
+          <div>
+            <div class="testi-nombre">Familia Gutiérrez</div>
+            <div class="testi-cargo">Empresa familiar — Córdoba</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
