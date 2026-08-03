@@ -398,10 +398,122 @@
       .proyectos-grid { grid-template-columns: 1fr; }
       .manifiesto-grid, .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-bg-text { display: none; }
+      <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <p class="section-eyebrow reveal">Lo que dicen</p>
+    <h2 class="section-heading reveal">Clientes<br>que arrancaron</h2>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Llegué pensando que necesitaba un community manager. Me fui con un diagnóstico que cambió cómo pienso mi negocio.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">M</div>
+          <div>
+            <div class="testi-nombre">Martín R.</div>
+            <div class="testi-cargo">Fundador, empresa de servicios — Córdoba</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Antes de trabajar con Ruda tenía una marca bonita que no le hablaba a nadie. Ahora tengo una marca que cierra ventas.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">S</div>
+          <div>
+            <div class="testi-nombre">Sofía L.</div>
+            <div class="testi-cargo">Fundadora, sector salud</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Nos hicieron preguntas que nunca nos habíamos hecho. Eso ya valió todo el proceso.</p>
+        <div class="testi-autor">
+          <div class="testi-inicial">G</div>
+          <div>
+            <div class="testi-nombre">Familia Gutiérrez</div>
+            <div class="testi-cargo">Empresa familiar — Córdoba</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
       .contacto-bg { display: none; }
       footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
       .no-item-right { display: none; }
       .modal-body-inner { padding: 24px; }
+    }
+
+    /* TESTIMONIOS */
+    #testimonios {
+      padding: 100px 48px;
+      background: var(--gris-oscuro);
+      border-top: 1px solid #222;
+    }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 0;
+    }
+    .testi-card {
+      background: var(--negro);
+      border: 1px solid #222;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: border-color 0.3s;
+    }
+    .testi-card:hover { border-color: var(--verde); }
+    .testi-quote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: var(--verde);
+      line-height: 0.8;
+      opacity: 0.4;
+    }
+    .testi-card:hover .testi-quote { opacity: 1; }
+    .testi-text {
+      font-size: 16px;
+      color: #ccc;
+      line-height: 1.8;
+      flex: 1;
+      font-style: italic;
+    }
+    .testi-autor {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid #222;
+    }
+    .testi-inicial {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--verde);
+      color: var(--negro);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .testi-nombre {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blanco);
+    }
+    .testi-cargo {
+      font-size: 11px;
+      color: var(--gris);
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+    @media (max-width: 768px) {
+      .testi-grid { grid-template-columns: 1fr; }
+      #testimonios { padding: 60px 24px; }
     }
   </style>
 </head>
@@ -446,6 +558,35 @@
     <p class="section-eyebrow reveal">Portfolio</p>
     <h2 class="section-heading reveal">Casos de<br>trabajo</h2>
     <div class="proyectos-grid" id="proyectos-grid"></div>
+  </section>
+
+  <!-- COMO TRABAJAMOS -->
+  <section id="proceso">
+    <p class="section-eyebrow reveal">Metodología</p>
+    <h2 class="section-heading reveal">Cómo<br>trabajamos</h2>
+    <div class="proceso-grid reveal">
+      <div class="proceso-step">
+        <div class="proceso-num">01</div>
+        <div class="proceso-body">
+          <h3>Entramos</h3>
+          <p>Nos metemos adentro de tu negocio. Entendemos qué vendés, a quién, qué dice tu competencia y qué está frenando el crecimiento. Sin esto, no arrancamos.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="proceso-num">02</div>
+        <div class="proceso-body">
+          <h3>Ordenamos</h3>
+          <p>Definimos qué comunicar, con qué tono y para quién. La estrategia antes que el diseño. El criterio antes que la estética.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="proceso-num">03</div>
+        <div class="proceso-body">
+          <h3>Construimos</h3>
+          <p>Recién acá viene la marca, el sistema visual y el contenido. Todo tiene sentido porque tiene una base real debajo.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- MANIFIESTO -->
