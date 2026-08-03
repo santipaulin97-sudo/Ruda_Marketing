@@ -930,6 +930,20 @@
         div.appendChild(a)
       }
       document.getElementById('bot-messages').appendChild(div)
+      const nuevoMenu = document.createElement('div')
+      nuevoMenu.className = 'bot-suggestions'
+      nuevoMenu.innerHTML = `
+        <button onclick="enviarSugerencia('que servicios ofrecen')">Servicios</button>
+        <button onclick="enviarSugerencia('como trabajan')">Proceso</button>
+        <button onclick="enviarSugerencia('cuanto sale')">Precio</button>
+        <button onclick="enviarSugerencia('quienes son')">Nosotras</button>
+        <button onclick="enviarSugerencia('portfolio casos')">Casos</button>
+      `
+      nuevoMenu.querySelectorAll('button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'))
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'))
+      })
+      document.getElementById('bot-messages').appendChild(nuevoMenu)
       scrollBot()
     }
 
