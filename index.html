@@ -478,16 +478,15 @@
       el.className = 'card'
       el.href = '#'
       el.innerHTML = `<div class="card-img-wrap"><img src="${p.imagen}" alt="${p.titulo}" loading="lazy" /><div class="card-num">0${i+1}</div></div><div class="card-body"><div class="card-tags">${p.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div><div class="card-title">${p.titulo}</div><div class="card-desc">${p.descripcion}</div></div><div class="card-arrow">→</div>`
-       el.addEventListener('click', e => { e.preventDefault(); if (p.ig) { window.open(p.ig, '_blank') } else { abrirModal(p.slug) } })
+        el.addEventListener('click', e => { e.preventDefault(); abrirModal(p.slug) })
       grid.appendChild(el)
     })
 
-    function abrirModal(slug) {
+   function abrirModal(slug) {
       const p = proyectos.find(x => x.slug === slug)
       if (!p) return
-      document.getElementById('modal-content').innerHTML = `<img class="modal-img" src="${p.imagen}" alt="${p.titulo}" /><div class="modal-body-inner"><div class="modal-tags">${p.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div><div class="modal-title">${p.titulo}</div><div class="modal-section"><h3>Desafío</h3><p>${p.desafio}</p></div><div class="modal-section"><h3>Solución</h3><p>${p.solucion}</p></div><div class="modal-section"><h3>Resultado</h3><p>${p.resultado}</p></div></div>`
-      document.getElementById('modal-overlay').classList.add('active')
-      document.body.style.overflow = 'hidden'
+      const igBtn = p.ig ? `<a href="${p.ig}" target="_blank" class="btn-verde" style="display:inline-flex;align-items:center;gap:10px;margin-top:8px;">Ver en Instagram →</a>` : ''
+      document.getElementById('modal-content').innerHTML = `<img class="modal-img" src="${p.imagen}" alt="${p.titulo}" /><div class="modal-body-inner"><div class="modal-tags">${p.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div><div class="modal-title">${p.titulo}</div><div class="modal-section"><h3>Trabajo realizado</h3><p>${p.descripcion}</p>${igBtn}</div></div>`
     }
     function cerrarModal() { document.getElementById('modal-overlay').classList.remove('active'); document.body.style.overflow = '' }
     document.getElementById('modal-close-btn').addEventListener('click', cerrarModal)
