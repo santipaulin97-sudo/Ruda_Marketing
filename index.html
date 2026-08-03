@@ -5,52 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ruda Marketing — Agencia estratégica, Córdoba</title>
   <meta name="description" content="Somos tres socias que funcionamos como el área de marketing tercerizada de empresas que necesitan pensar su negocio antes de comunicarlo." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --negro: #0a0a0a;
+      --verde: #00e346;
+      --blanco: #f0f0f0;
+      --gris: #888;
+      --gris-oscuro: #1a1a1a;
+      --gris-medio: #2a2a2a;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --verde: #2D5016;
-      --crema: #F5F0E8;
-      --tierra: #8B6914;
-      --blanco: #ffffff;
-      --gris: #555;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--crema);
-      color: #1a1a1a;
+      background: var(--negro);
+      color: var(--blanco);
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* CURSOR CUSTOM */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--verde);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor.hover {
+      width: 40px; height: 40px;
+      background: transparent;
+      border: 2px solid var(--verde);
     }
 
     /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 60px;
-      background: var(--crema);
-      border-bottom: 1px solid #e0d9cc;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 48px;
+      mix-blend-mode: difference;
     }
     .nav-logo {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--verde);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 4px;
+      color: var(--blanco);
       text-decoration: none;
     }
-    .nav-links { display: flex; gap: 40px; }
+    .nav-links { display: flex; gap: 36px; }
     .nav-links a {
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--verde);
-      text-decoration: none;
-      opacity: 0.7;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--blanco); text-decoration: none; opacity: 0.6;
       transition: opacity 0.2s;
     }
     .nav-links a:hover { opacity: 1; }
@@ -58,269 +70,348 @@
     /* HERO */
     #hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 60px 80px;
-      background: var(--crema);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid #222;
+    }
+    .hero-bg-text {
+      position: absolute; top: 50%; left: 48px;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(120px, 20vw, 260px);
+      color: transparent;
+      -webkit-text-stroke: 1px #1e1e1e;
+      line-height: 0.9;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
     }
     .hero-tag {
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-bottom: 32px;
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--verde); margin-bottom: 24px; position: relative;
     }
     .hero-title {
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 900;
-      color: var(--verde);
-      line-height: 1.0;
-      margin-bottom: 32px;
-      max-width: 800px;
-    }
-    .hero-sub {
-      font-size: 18px;
-      color: var(--gris);
-      max-width: 520px;
-      line-height: 1.7;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 160px);
+      line-height: 0.92;
+      color: var(--blanco);
+      position: relative;
       margin-bottom: 48px;
     }
-    .btn-primary {
-      display: inline-block;
-      background: var(--verde);
-      color: var(--crema);
-      padding: 16px 40px;
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s;
+    .hero-title span { color: var(--verde); }
+    .hero-bottom {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      position: relative;
     }
-    .btn-primary:hover { background: var(--tierra); }
+    .hero-sub {
+      font-size: 16px; color: var(--gris); max-width: 420px; line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex; align-items: center; gap: 16px;
+      text-decoration: none; color: var(--negro);
+      background: var(--verde);
+      padding: 16px 32px;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      transition: transform 0.2s;
+      white-space: nowrap;
+    }
+    .hero-cta:hover { transform: scale(1.03); }
+
+    /* TICKER */
+    .ticker {
+      background: var(--verde);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex; gap: 0;
+      animation: ticker 18s linear infinite;
+    }
+    .ticker span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 4px;
+      color: var(--negro);
+      padding: 0 48px;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
     /* PORTFOLIO */
     #portfolio {
-      padding: 100px 60px;
-      background: var(--blanco);
+      padding: 100px 48px;
     }
-    .section-title {
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-bottom: 16px;
+    .section-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--verde); margin-bottom: 16px;
     }
     .section-heading {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--verde);
-      margin-bottom: 60px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      color: var(--blanco);
+      margin-bottom: 64px;
+      line-height: 1;
     }
-    .grid {
+    .proyectos-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 48px;
+      gap: 2px;
+      background: #111;
+      border: 1px solid #111;
     }
     .card {
-      cursor: pointer;
+      background: var(--negro);
+      cursor: none;
       text-decoration: none;
       color: inherit;
-    }
-    .card-img {
-      width: 100%;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      background: #ddd;
-      margin-bottom: 20px;
-      transition: transform 0.4s;
+      display: block;
+      position: relative;
       overflow: hidden;
+      transition: background 0.3s;
+    }
+    .card:hover { background: var(--gris-oscuro); }
+    .card-img-wrap {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      position: relative;
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(30%);
+      transition: transform 0.6s ease, filter 0.4s;
       display: block;
     }
-    .card:hover .card-img { transform: scale(1.03); }
-    .card-tags {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 8px;
+    .card:hover .card-img-wrap img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
     }
+    .card-num {
+      position: absolute; top: 16px; left: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px; letter-spacing: 3px;
+      color: var(--verde);
+      background: var(--negro);
+      padding: 4px 10px;
+    }
+    .card-body { padding: 24px 28px 32px; }
+    .card-tags { display: flex; gap: 12px; margin-bottom: 10px; }
     .card-tag {
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tierra);
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gris);
     }
     .card-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--verde);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px; color: var(--blanco); line-height: 1;
       margin-bottom: 8px;
       transition: color 0.2s;
     }
-    .card:hover .card-title { color: var(--tierra); }
-    .card-desc {
-      font-size: 14px;
-      color: var(--gris);
-      line-height: 1.6;
+    .card:hover .card-title { color: var(--verde); }
+    .card-desc { font-size: 13px; color: var(--gris); line-height: 1.6; }
+    .card-arrow {
+      position: absolute; bottom: 28px; right: 28px;
+      font-size: 20px; color: var(--verde);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
     }
+    .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
 
-    /* MODAL */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 200;
-      overflow-y: auto;
+    /* MANIFIESTO */
+    #manifiesto {
+      padding: 100px 48px;
+      background: var(--verde);
+      color: var(--negro);
     }
-    .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; }
-    .modal {
-      background: var(--crema);
-      max-width: 800px;
-      width: 100%;
-      padding: 60px;
-      position: relative;
+    .manifiesto-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
     }
-    .modal-close {
-      position: absolute;
-      top: 24px; right: 24px;
-      background: none;
-      border: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: var(--verde);
+    .manifiesto-left .eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: rgba(0,0,0,0.5); margin-bottom: 24px;
     }
-    .modal-tag {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-bottom: 16px;
+    .manifiesto-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 7vw, 96px);
+      line-height: 0.92; color: var(--negro);
     }
-    .modal-title {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--verde);
-      margin-bottom: 32px;
+    .manifiesto-right p {
+      font-size: 18px; line-height: 1.8; color: rgba(0,0,0,0.75);
+      margin-bottom: 24px;
     }
-    .modal-img {
-      width: 100%;
-      margin-bottom: 40px;
-      display: block;
+    .manifiesto-right p strong { color: var(--negro); }
+
+    /* NO HACEMOS */
+    #no-hacemos {
+      padding: 100px 48px;
+      border-bottom: 1px solid #222;
     }
-    .modal-section { margin-bottom: 32px; }
-    .modal-section h3 {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-bottom: 12px;
+    .no-list { margin-top: 48px; }
+    .no-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 28px 0;
+      border-top: 1px solid #222;
+      transition: padding-left 0.3s;
     }
-    .modal-section p {
-      font-size: 16px;
-      color: #333;
-      line-height: 1.8;
+    .no-item:hover { padding-left: 16px; }
+    .no-item-left {
+      display: flex; align-items: center; gap: 24px;
+    }
+    .no-x {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; color: #333; letter-spacing: 2px;
+    }
+    .no-item-left span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(24px, 3vw, 40px);
+      color: var(--blanco); letter-spacing: 1px;
+    }
+    .no-item-right {
+      font-size: 13px; color: var(--gris); max-width: 300px; text-align: right;
     }
 
     /* SOBRE */
     #sobre {
-      padding: 100px 60px;
-      background: var(--crema);
+      padding: 100px 48px;
+      background: var(--gris-oscuro);
     }
-    .sobre-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .sobre-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 7vw, 96px);
+      line-height: 0.92; color: var(--blanco); margin-bottom: 40px;
     }
-    .sobre-text p {
-      font-size: 17px;
-      color: var(--gris);
-      line-height: 1.8;
-      margin-bottom: 20px;
+    .sobre-left h2 span { color: var(--verde); }
+    .sobre-left p {
+      font-size: 16px; color: var(--gris); line-height: 1.8; margin-bottom: 20px;
     }
-    .sobre-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+    .sobre-right { display: flex; flex-direction: column; justify-content: center; gap: 48px; }
+    .stat { border-left: 2px solid var(--verde); padding-left: 24px; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px; color: var(--blanco); line-height: 1;
     }
-    .stat-number {
-      font-size: 56px;
-      font-weight: 900;
-      color: var(--verde);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tierra);
-      margin-top: 8px;
-    }
+    .stat-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gris); margin-top: 4px; }
 
     /* CONTACTO */
     #contacto {
-      padding: 100px 60px;
-      background: var(--verde);
-      color: var(--crema);
+      padding: 120px 48px;
+      border-top: 1px solid #222;
+      position: relative; overflow: hidden;
     }
-    #contacto .section-title { color: #a8c97a; }
-    #contacto .section-heading { color: var(--crema); }
-    #contacto p {
-      font-size: 18px;
-      opacity: 0.8;
-      max-width: 480px;
-      line-height: 1.7;
-      margin-bottom: 48px;
+    .contacto-bg {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(100px, 18vw, 220px);
+      color: transparent; -webkit-text-stroke: 1px #1a1a1a;
+      white-space: nowrap; pointer-events: none; user-select: none;
     }
-    .btn-outline {
+    .contacto-inner { position: relative; max-width: 720px; }
+    .contacto-inner .section-eyebrow { margin-bottom: 24px; }
+    .contacto-inner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 8vw, 110px);
+      line-height: 0.92; color: var(--blanco); margin-bottom: 40px;
+    }
+    .contacto-inner h2 span { color: var(--verde); }
+    .contacto-inner p { font-size: 17px; color: var(--gris); line-height: 1.7; margin-bottom: 48px; max-width: 480px; }
+    .contacto-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-verde {
       display: inline-block;
-      border: 1px solid var(--crema);
-      color: var(--crema);
-      padding: 16px 40px;
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.2s;
-      margin-right: 16px;
-      margin-bottom: 16px;
+      background: var(--verde); color: var(--negro);
+      padding: 16px 36px;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      text-decoration: none; transition: transform 0.2s;
     }
-    .btn-outline:hover {
-      background: var(--crema);
-      color: var(--verde);
+    .btn-verde:hover { transform: scale(1.03); }
+    .btn-ghost {
+      display: inline-block;
+      border: 1px solid #333; color: var(--blanco);
+      padding: 16px 36px;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
     }
+    .btn-ghost:hover { border-color: var(--verde); color: var(--verde); }
 
     /* FOOTER */
     footer {
-      padding: 32px 60px;
-      background: #1a1a1a;
-      color: #666;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 32px 48px;
+      background: #050505;
+      border-top: 1px solid #1a1a1a;
+      display: flex; justify-content: space-between; align-items: center;
     }
+    footer span { font-size: 12px; color: #444; letter-spacing: 1px; }
+    footer a { color: var(--verde); text-decoration: none; font-size: 12px; letter-spacing: 1px; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92); z-index: 500;
+      overflow-y: auto; padding: 40px 24px;
+    }
+    .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+    .modal {
+      background: var(--gris-oscuro);
+      max-width: 860px; width: 100%;
+      position: relative;
+      border: 1px solid #2a2a2a;
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--verde); border: none;
+      width: 40px; height: 40px;
+      font-size: 20px; cursor: none;
+      color: var(--negro); font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10;
+    }
+    .modal-img { width: 100%; display: block; max-height: 500px; object-fit: cover; }
+    .modal-body-inner { padding: 48px; }
+    .modal-tags { display: flex; gap: 12px; margin-bottom: 16px; }
+    .modal-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--verde); }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      color: var(--blanco); line-height: 1; margin-bottom: 40px;
+    }
+    .modal-section { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid #2a2a2a; }
+    .modal-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .modal-section h3 {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--verde); margin-bottom: 14px;
+    }
+    .modal-section p { font-size: 16px; color: #aaa; line-height: 1.8; }
+
+    /* REVEAL ANIM */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
       .nav-links { display: none; }
-      #hero { padding: 100px 24px 60px; }
-      #portfolio, #sobre, #contacto { padding: 60px 24px; }
-      .grid { grid-template-columns: 1fr; gap: 40px; }
-      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
-      .modal { padding: 40px 24px; }
-      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+      #hero { padding: 0 24px 60px; }
+      #portfolio, #sobre, #contacto, #manifiesto, #no-hacemos { padding: 60px 24px; }
+      .proyectos-grid { grid-template-columns: 1fr; }
+      .manifiesto-grid, .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-bg-text { display: none; }
+      .contacto-bg { display: none; }
+      footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+      .no-item-right { display: none; }
+      .modal-body-inner { padding: 24px; }
     }
   </style>
 </head>
 <body>
+
+  <div class="cursor" id="cursor"></div>
 
   <!-- NAV -->
   <nav>
     <a href="#hero" class="nav-logo">Ruda</a>
     <div class="nav-links">
       <a href="#portfolio">Casos</a>
+      <a href="#manifiesto">Manifiesto</a>
       <a href="#sobre">Nosotras</a>
       <a href="#contacto">Contacto</a>
     </div>
@@ -328,42 +419,90 @@
 
   <!-- HERO -->
   <section id="hero">
-    <p class="hero-tag">Agencia de marketing estratégico — Córdoba, Argentina</p>
-    <h1 class="hero-title">El criterio<br>primero.<br>Las piezas<br>después.</h1>
-    <p class="hero-sub">Somos tres socias que nos metemos adentro de tu negocio, encontramos qué frena el crecimiento y ordenamos ahí. Recién después viene la marca.</p>
-    <a href="#portfolio" class="btn-primary">Ver casos</a>
+    <div class="hero-bg-text">RUDA</div>
+    <p class="hero-tag reveal">Agencia de marketing estratégico — Córdoba, Argentina</p>
+    <h1 class="hero-title reveal">
+      El criterio<br>
+      <span>primero.</span><br>
+      Las piezas<br>
+      después.
+    </h1>
+    <div class="hero-bottom reveal">
+      <p class="hero-sub">Nos metemos adentro de tu negocio, encontramos qué frena el crecimiento y ordenamos ahí. Recién después viene la marca.</p>
+      <a href="#portfolio" class="hero-cta">Ver casos →</a>
+    </div>
   </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner" id="ticker-inner"></div>
+  </div>
 
   <!-- PORTFOLIO -->
   <section id="portfolio">
-    <p class="section-title">Portfolio</p>
-    <h2 class="section-heading">Casos de trabajo</h2>
-    <div class="grid" id="proyectos-grid">
-      <!-- Se cargan desde JS -->
+    <p class="section-eyebrow reveal">Portfolio</p>
+    <h2 class="section-heading reveal">Casos de<br>trabajo</h2>
+    <div class="proyectos-grid" id="proyectos-grid"></div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section id="manifiesto">
+    <div class="manifiesto-grid reveal">
+      <div class="manifiesto-left">
+        <p class="eyebrow">Cómo trabajamos</p>
+        <h2>Criterio<br>antes que<br>estética.</h2>
+      </div>
+      <div class="manifiesto-right">
+        <p>La mayoría de las agencias arranca con la paleta de colores. Nosotras arrancamos con preguntas incómodas.</p>
+        <p><strong>¿Qué frena el crecimiento? ¿A quién le estás hablando realmente? ¿Qué dice tu competencia que vos no estás diciendo?</strong></p>
+        <p>Recién cuando eso está ordenado, tiene sentido hablar de marca, contenido y sistema visual. El diseño sin estrategia es decoración.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NO HACEMOS -->
+  <section id="no-hacemos">
+    <p class="section-eyebrow reveal">Transparencia</p>
+    <h2 class="section-heading reveal">Cosas que<br><span style="color:var(--verde)">NO</span> hacemos.<br><span style="font-size:0.5em;color:var(--gris)">(¡¡¡¡y menos mal!!!!)</span></h2>
+    <div class="no-list reveal">
+      <div class="no-item">
+        <div class="no-item-left"><span class="no-x">✕</span><span>Posts vacíos</span></div>
+        <div class="no-item-right">Contenido que no le habla a nadie, sobre nada, para nada.</div>
+      </div>
+      <div class="no-item">
+        <div class="no-item-left"><span class="no-x">✕</span><span>Marcas genéricas</span></div>
+        <div class="no-item-right">Si la marca podría ser de cualquiera, no es de nadie.</div>
+      </div>
+      <div class="no-item">
+        <div class="no-item-left"><span class="no-x">✕</span><span>Estrategia sin criterio</span></div>
+        <div class="no-item-right">Un plan de contenidos no es estrategia. Es un calendario.</div>
+      </div>
+      <div class="no-item">
+        <div class="no-item-left"><span class="no-x">✕</span><span>Trabajar para todos</span></div>
+        <div class="no-item-right">Nos metemos adentro de tu negocio. Eso requiere selección.</div>
+      </div>
     </div>
   </section>
 
   <!-- SOBRE -->
   <section id="sobre">
-    <p class="section-title">Quiénes somos</p>
-    <h2 class="section-heading">Sobre Ruda</h2>
     <div class="sobre-grid">
-      <div class="sobre-text">
+      <div class="sobre-left reveal">
+        <h2>Tres<br>socias.<br><span>Un</span><br>criterio.</h2>
         <p>Ruda es una agencia de marketing estratégico de Córdoba, Argentina. Funcionamos como el área de marketing tercerizada de empresas que necesitan pensar su negocio antes de comunicarlo.</p>
         <p>Nos metemos adentro de lo que hace el cliente, encontramos qué frena el crecimiento y ordenamos ahí. Recién después venimos con la marca, el sistema visual y el contenido.</p>
-        <p>Los casos que vas a ver son eso: procesos donde el criterio vino primero y las piezas después.</p>
       </div>
-      <div class="sobre-stats">
-        <div>
-          <div class="stat-number">8</div>
+      <div class="sobre-right reveal">
+        <div class="stat">
+          <div class="stat-num">8</div>
           <div class="stat-label">Casos publicados</div>
         </div>
-        <div>
-          <div class="stat-number">3</div>
+        <div class="stat">
+          <div class="stat-num">3</div>
           <div class="stat-label">Socias fundadoras</div>
         </div>
-        <div>
-          <div class="stat-number">Cba.</div>
+        <div class="stat">
+          <div class="stat-num">Cba.</div>
           <div class="stat-label">Argentina</div>
         </div>
       </div>
@@ -372,162 +511,124 @@
 
   <!-- CONTACTO -->
   <section id="contacto">
-    <p class="section-title">Hablemos</p>
-    <h2 class="section-heading">¿Trabajamos juntos?</h2>
-    <p>Contanos tu negocio y arrancamos desde ahí. Sin vueltas.</p>
-    <a href="https://instagram.com/ruda.marketing" target="_blank" class="btn-outline">Instagram</a>
-    <a href="mailto:hola@rudamarketing.com" class="btn-outline">Email</a>
+    <div class="contacto-bg">HABLEMOS</div>
+    <div class="contacto-inner reveal">
+      <p class="section-eyebrow">Contacto</p>
+      <h2>¿Trabajamos<br><span>juntos?</span></h2>
+      <p>Contanos tu negocio y arrancamos desde ahí. Sin vueltas, sin decirte lo que querés escuchar.</p>
+      <div class="contacto-btns">
+        <a href="https://instagram.com/ruda.marketing" target="_blank" class="btn-verde">Instagram →</a>
+        <a href="mailto:hola@rudamarketing.com" class="btn-ghost">Email</a>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <span>© 2026 Ruda Marketing — Córdoba, Argentina</span>
-    <span>Diseño estratégico antes que decorativo</span>
+    <a href="https://instagram.com/ruda.marketing" target="_blank">@ruda.marketing</a>
   </footer>
 
   <!-- MODAL -->
-  <div class="modal-overlay" id="modal-overlay" onclick="cerrarModal(event)">
-    <div class="modal" id="modal-content">
-      <button class="modal-close" onclick="cerrarModal()">×</button>
-      <div id="modal-body"></div>
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal-box">
+      <button class="modal-close" id="modal-close-btn">✕</button>
+      <div id="modal-content"></div>
     </div>
   </div>
 
   <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor')
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px'
+      cursor.style.top = e.clientY + 'px'
+    })
+    document.querySelectorAll('a, button, .card, .no-item').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'))
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'))
+    })
+
+    // TICKER
+    const tickerWords = ['ESTRATEGIA', 'BRANDING', 'CRITERIO', 'IDENTIDAD', 'COPYWRITING', 'SISTEMA VISUAL', 'CÓRDOBA', 'RUDA']
+    const inner = document.getElementById('ticker-inner')
+    const repeated = [...tickerWords, ...tickerWords]
+    inner.innerHTML = repeated.map(w => `<span>— ${w} </span>`).join('')
+
+    // PROYECTOS
     const proyectos = [
-      {
-        slug: "abc-x-ruda",
-        cliente: "ABC",
-        titulo: "ABC x Ruda",
-        tags: ["Branding", "Estrategia"],
-        descripcion: "Redefinición de marca y sistema de comunicación.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/00f805253723877.Y3JvcCwzMTU2LDI0NjksNDI5LDQ4MTM.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "winay-x-ruda",
-        cliente: "Wiñay",
-        titulo: "Wiñay x Ruda",
-        tags: ["Identidad", "Contenido"],
-        descripcion: "Sistema visual e identidad de marca.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/3fc01a253251111.Y3JvcCwzNzI3LDI5MTUsNjM2LDEzMzc.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "flowik-x-ruda",
-        cliente: "Flowik",
-        titulo: "Flowik x Ruda",
-        tags: ["Copywriting", "Branding"],
-        descripcion: "Estrategia de comunicación y sistema de marca.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/02c431253243841.Y3JvcCwzNDU0LDI3MDEsMjMxNiwxOTY2.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "galeon-x-ruda",
-        cliente: "Galeón",
-        titulo: "Galeón x Ruda",
-        tags: ["Estrategia", "Identidad"],
-        descripcion: "Posicionamiento y desarrollo de marca.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/cfe3c1253077423.Y3JvcCwzMzY2LDI2MzMsMCww.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "kodo-x-ruda",
-        cliente: "Kodo",
-        titulo: "Kodo x Ruda",
-        tags: ["Branding", "Contenido"],
-        descripcion: "Identidad visual y estrategia de contenido.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/672f13253014789.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "cauce-x-ruda",
-        cliente: "Cauce",
-        titulo: "Cauce x Ruda",
-        tags: ["Estrategia", "Branding"],
-        descripcion: "Definición estratégica y sistema visual.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/24e862252721995.Y3JvcCw2MzkyLDQ5OTksNDcsMA.png",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "as-experience-x-ruda",
-        cliente: "AS Experience",
-        titulo: "AS Experience x Ruda",
-        tags: ["Identidad", "Estrategia"],
-        descripcion: "Marca y comunicación para experiencias.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/980c49252714083.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      },
-      {
-        slug: "club-mendio-x-ruda",
-        cliente: "Club Mendio",
-        titulo: "Club Mendio x Ruda",
-        tags: ["Branding", "Copywriting"],
-        descripcion: "Sistema de comunicación y marca.",
-        imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/249b51252711443.Y3JvcCw0NzMwLDM3MDAsMzg2LDA.jpg",
-        desafio: "Completar con la info real del proyecto.",
-        solucion: "Completar con la info real del proyecto.",
-        resultado: "Completar con la info real del proyecto."
-      }
+      { slug: "abc-x-ruda", titulo: "ABC x Ruda", tags: ["Branding", "Estrategia"], descripcion: "Redefinición de marca y sistema de comunicación.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/00f805253723877.Y3JvcCwzMTU2LDI0NjksNDI5LDQ4MTM.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "winay-x-ruda", titulo: "Wiñay x Ruda", tags: ["Identidad", "Contenido"], descripcion: "Sistema visual e identidad de marca.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/3fc01a253251111.Y3JvcCwzNzI3LDI5MTUsNjM2LDEzMzc.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "flowik-x-ruda", titulo: "Flowik x Ruda", tags: ["Copywriting", "Branding"], descripcion: "Estrategia de comunicación y sistema de marca.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/02c431253243841.Y3JvcCwzNDU0LDI3MDEsMjMxNiwxOTY2.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "galeon-x-ruda", titulo: "Galeón x Ruda", tags: ["Estrategia", "Identidad"], descripcion: "Posicionamiento y desarrollo de marca.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/cfe3c1253077423.Y3JvcCwzMzY2LDI2MzMsMCww.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "kodo-x-ruda", titulo: "Kodo x Ruda", tags: ["Branding", "Contenido"], descripcion: "Identidad visual y estrategia de contenido.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/672f13253014789.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "cauce-x-ruda", titulo: "Cauce x Ruda", tags: ["Estrategia", "Branding"], descripcion: "Definición estratégica y sistema visual.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/24e862252721995.Y3JvcCw2MzkyLDQ5OTksNDcsMA.png", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "as-experience-x-ruda", titulo: "AS Experience x Ruda", tags: ["Identidad", "Estrategia"], descripcion: "Marca y comunicación para experiencias.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/980c49252714083.Y3JvcCwyODc2LDIyNTAsNTYyLDA.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." },
+      { slug: "club-mendio-x-ruda", titulo: "Club Mendio x Ruda", tags: ["Branding", "Copywriting"], descripcion: "Sistema de comunicación y marca.", imagen: "https://mir-s3-cdn-cf.behance.net/projects/404/249b51252711443.Y3JvcCw0NzMwLDM3MDAsMzg2LDA.jpg", desafio: "Completar con la info real del proyecto.", solucion: "Completar con la info real del proyecto.", resultado: "Completar con la info real del proyecto." }
     ]
 
-    // Renderizar cards
     const grid = document.getElementById('proyectos-grid')
-    proyectos.forEach(p => {
-      grid.innerHTML += `
-        <a class="card" onclick="abrirModal('${p.slug}'); return false;" href="#">
-          <img class="card-img" src="${p.imagen}" alt="${p.titulo}" />
+    proyectos.forEach((p, i) => {
+      const el = document.createElement('a')
+      el.className = 'card'
+      el.href = '#'
+      el.innerHTML = `
+        <div class="card-img-wrap">
+          <img src="${p.imagen}" alt="${p.titulo}" loading="lazy" />
+          <div class="card-num">0${i+1}</div>
+        </div>
+        <div class="card-body">
           <div class="card-tags">${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
           <div class="card-title">${p.titulo}</div>
           <div class="card-desc">${p.descripcion}</div>
-        </a>
+        </div>
+        <div class="card-arrow">→</div>
       `
+      el.addEventListener('click', e => { e.preventDefault(); abrirModal(p.slug) })
+      grid.appendChild(el)
     })
 
+    // MODAL
     function abrirModal(slug) {
       const p = proyectos.find(x => x.slug === slug)
       if (!p) return
-      document.getElementById('modal-body').innerHTML = `
-        <div class="modal-tag">${p.tags.join(' · ')}</div>
-        <div class="modal-title">${p.titulo}</div>
+      document.getElementById('modal-content').innerHTML = `
         <img class="modal-img" src="${p.imagen}" alt="${p.titulo}" />
-        <div class="modal-section"><h3>Desafío</h3><p>${p.desafio}</p></div>
-        <div class="modal-section"><h3>Solución</h3><p>${p.solucion}</p></div>
-        <div class="modal-section"><h3>Resultado</h3><p>${p.resultado}</p></div>
+        <div class="modal-body-inner">
+          <div class="modal-tags">${p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}</div>
+          <div class="modal-title">${p.titulo}</div>
+          <div class="modal-section"><h3>Desafío</h3><p>${p.desafio}</p></div>
+          <div class="modal-section"><h3>Solución</h3><p>${p.solucion}</p></div>
+          <div class="modal-section"><h3>Resultado</h3><p>${p.resultado}</p></div>
+        </div>
       `
       document.getElementById('modal-overlay').classList.add('active')
       document.body.style.overflow = 'hidden'
     }
 
-    function cerrarModal(e) {
-      if (e && e.target !== document.getElementById('modal-overlay') && e.type !== 'click') return
-      if (e && e.currentTarget === document.querySelector('.modal-close')) {
-        // ok
-      }
+    function cerrarModal() {
       document.getElementById('modal-overlay').classList.remove('active')
       document.body.style.overflow = ''
     }
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.getElementById('modal-overlay').classList.remove('active')
-        document.body.style.overflow = ''
-      }
+    document.getElementById('modal-close-btn').addEventListener('click', cerrarModal)
+    document.getElementById('modal-overlay').addEventListener('click', e => {
+      if (e.target === document.getElementById('modal-overlay')) cerrarModal()
     })
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal() })
+
+    // REVEAL ON SCROLL
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.12 })
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+
+    // Trigger hero reveals on load
+    setTimeout(() => {
+      document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 150)
+      })
+    }, 100)
   </script>
 </body>
 </html>
