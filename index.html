@@ -171,15 +171,110 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* FAB */
-    .fab-container { position: fixed; bottom: 32px; right: 32px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 300; }
-    .fab-tooltip { background: var(--verde); color: var(--negro); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; opacity: 0; transform: translateX(8px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; white-space: nowrap; }
-    .fab-container:hover .fab-tooltip { opacity: 1; transform: translateX(0); }
-    .fab { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; }
-    .fab:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(0,227,70,0.4); }
-    .fab:active { transform: scale(0.96); }
-    .fab-wa { background: #25D366; color: #fff; }
-    .fab-bot { background: var(--verde); color: var(--negro); }
-    .fab-bot.active { background: #fff; }
+.fab-container {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 300;
+}
+
+/* Botones secundarios (WA + Chat) — ocultos por defecto */
+.fab-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.fab-container.expanded .fab-actions {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+/* Cada fila: etiqueta + botón */
+.fab-action-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fab-label {
+  background: var(--negro);
+  border: 1px solid #2a2a2a;
+  color: var(--blanco);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.2s ease 0.05s, transform 0.2s ease 0.05s;
+}
+.fab-container.expanded .fab-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.fab:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(0,227,70,0.4); }
+.fab:active { transform: scale(0.96); }
+.fab-wa { background: #25D366; color: #fff; }
+.fab-chat { background: var(--negro); border: 1px solid #2a2a2a; color: var(--verde); }
+.fab-chat.active { background: var(--verde); color: var(--negro); border-color: var(--verde); }
+
+/* Botón principal */
+.fab-main {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--verde);
+  color: var(--negro);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s;
+  box-shadow: 0 4px 20px rgba(0,227,70,0.25);
+  flex-shrink: 0;
+}
+.fab-main:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,227,70,0.4); }
+.fab-main:active { transform: scale(0.95); }
+.fab-container.expanded .fab-main {
+  background: var(--blanco);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .fab-container { bottom: 20px; right: 20px; gap: 10px; }
+  .fab { width: 48px; height: 48px; }
+  .fab-main { width: 52px; height: 52px; font-size: 20px; }
+  .fab-label { font-size: 10px; padding: 6px 12px; }
+}
 
     /* BOT PANEL — desktop */
     .bot-panel { position: fixed; bottom: 100px; right: 32px; width: 360px; max-height: 520px; background: #111; border: 1px solid #2a2a2a; display: flex; flex-direction: column; z-index: 299; transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -619,15 +714,33 @@
   </div>
 
   <!-- FAB -->
-  <div class="fab-container">
-    <div class="fab-tooltip">¿Hablamos?</div>
-    <a class="fab fab-wa" href="https://wa.me/5493515310485?text=Hola%20Ruda!%20Vi%20su%20web%20y%20quiero%20saber%20m%C3%A1s%20%F0%9F%8C%BF" target="_blank" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <button class="fab fab-bot" id="fab-bot-btn" aria-label="Chat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-    </button>
+<div class="fab-container" id="fab-container">
+  <div class="fab-actions" id="fab-actions">
+
+    <div class="fab-action-row">
+      <span class="fab-label">WhatsApp</span>
+      <a class="fab fab-wa"
+         href="https://wa.me/5493515310485?text=Hola%20Ruda!%20Vi%20su%20web%20y%20quiero%20saber%20m%C3%A1s%20%F0%9F%8C%BF"
+         target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="fab-action-row">
+      <span class="fab-label">Chat</span>
+      <button class="fab fab-chat" id="fab-bot-btn" aria-label="Chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+      </button>
+    </div>
+
   </div>
+
+  <button class="fab-main" id="fab-main-btn" aria-label="Contacto">R</button>
+</div>
 
   <!-- BOT PANEL -->
   <div class="bot-panel" id="bot-panel">
@@ -750,20 +863,42 @@
       })
     }
 
-    // FAB
-    const botBtn = document.getElementById('fab-bot-btn')
-    const botPanel = document.getElementById('bot-panel')
-    botBtn.addEventListener('click', () => {
-      botPanel.classList.toggle('open')
-      botBtn.classList.toggle('active')
-      if (botPanel.classList.contains('open')) {
-        document.getElementById('bot-input').focus()
-      }
-    })
-    document.getElementById('bot-close').addEventListener('click', () => {
-      botPanel.classList.remove('open')
-      botBtn.classList.remove('active')
-    })
+   // FAB
+const fabContainer = document.getElementById('fab-container')
+const fabMainBtn = document.getElementById('fab-main-btn')
+const botBtn = document.getElementById('fab-bot-btn')
+const botPanel = document.getElementById('bot-panel')
+
+fabMainBtn.addEventListener('click', () => {
+  const isExpanded = fabContainer.classList.toggle('expanded')
+  // Si se cierra el menú y el bot estaba abierto, cerrarlo también
+  if (!isExpanded) {
+    botPanel.classList.remove('open')
+    botBtn.classList.remove('active')
+  }
+})
+
+botBtn.addEventListener('click', () => {
+  botPanel.classList.toggle('open')
+  botBtn.classList.toggle('active')
+  if (botPanel.classList.contains('open')) {
+    document.getElementById('bot-input').focus()
+  }
+})
+
+document.getElementById('bot-close').addEventListener('click', () => {
+  botPanel.classList.remove('open')
+  botBtn.classList.remove('active')
+})
+
+// Click afuera cierra el menú
+document.addEventListener('click', e => {
+  if (!fabContainer.contains(e.target) && !botPanel.contains(e.target)) {
+    fabContainer.classList.remove('expanded')
+    botPanel.classList.remove('open')
+    botBtn.classList.remove('active')
+  }
+})
 
     // BOT
     const respuestas = [
